@@ -48,9 +48,9 @@ const Login = () => {
         { firstName, lastName, email, password,photoUrl },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data.data));
+      // dispatch(addUser(res.data.data)); 
       setIsLoginForm(true);
-      return navigate("/");
+      return navigate("/login");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
