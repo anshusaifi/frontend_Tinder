@@ -13,7 +13,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userData = useSelector((store) => store.user);
-  const [loading, setLoading] = useState(true); // NEW
+  const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
     try {
@@ -22,12 +22,13 @@ const LandingPage = () => {
       });
       dispatch(addUser(res.data));
     } catch (err) {
+      // Don't navigate to login automatically - let the user stay on landing page
       if (err.response?.status === 401) {
-        navigate("/login");
+        console.log("User not authenticated");
       }
       console.error(err);
     } finally {
-      setLoading(false); // ✅ finished loading, whether user is found or not
+      setLoading(false);
     }
   };
 
@@ -54,7 +55,12 @@ const LandingPage = () => {
       <Navbar />
 
       <main className="pt-24 pb-40 relative z-10">
-        {isHome ? <HeroSection /> : <Outlet />}
+        {/* Show HeroSection only when user is logged out and on home page */}
+        {isHome && !userData ? (
+          <HeroSection />
+        ) : (
+          <Outlet />
+        )}
       </main>
     </div>
   );

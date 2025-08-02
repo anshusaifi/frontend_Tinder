@@ -145,6 +145,8 @@ const Login = () => {
               ? "New User? Signup Here"
               : "Existing User? Login Here"}
           </p>
+          <br/>
+          {/* <p>{error}</p> */}
         </div>
       </div>
     </div>

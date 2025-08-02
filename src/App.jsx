@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { Provider } from "react-redux";
@@ -10,7 +9,6 @@ import Requests from "./components/Requests";
 import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import LandingPage from "./components/LandingPage";
-// import SessionInitializer from "./components/SessionInitializer";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
@@ -18,16 +16,22 @@ function App() {
     <>
       <Provider store={appStore}>
         <BrowserRouter>
-        {/* <SessionInitializer/> */}
           <Routes>
+            {/* Landing page layout wraps everything */}
             <Route path="/" element={<LandingPage />}>
-              <Route path="/feed" element={<PrivateRoute><Feed/></PrivateRoute>} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
-              <Route path="/connections" element={<PrivateRoute><Connections/></PrivateRoute>} />
-              <Route path="/requests" element={<PrivateRoute><Requests/></PrivateRoute>} />
-              <Route path="/premium" element={<Premium />} />
-              <Route path="/chat/:targetUserId" element={<Chat />} />
+              {/* Home route - shows HeroSection when logged out */}
+              <Route index element={<div></div>} />
+              
+              {/* Public routes */}
+              <Route path="login" element={<Login />} />
+              
+              {/* Protected routes */}
+              <Route path="feed" element={<PrivateRoute><Feed/></PrivateRoute>} />
+              <Route path="profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
+              <Route path="connections" element={<PrivateRoute><Connections/></PrivateRoute>} />
+              <Route path="requests" element={<PrivateRoute><Requests/></PrivateRoute>} />
+              <Route path="chat/:targetUserId" element={<PrivateRoute><Chat /></PrivateRoute>} />
+              <Route path="premium" element={<Premium />} />
             </Route>
           </Routes>
         </BrowserRouter>
