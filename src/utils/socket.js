@@ -1,14 +1,14 @@
 // utils/socket.js
 import { io } from "socket.io-client";
-import { BASE_URL } from "./constants";
 
 let socket = null;
 
 export const createSocketConnection = () => {
   if (!socket || socket.disconnected) {
-    socket = io(BASE_URL, { 
+    // Connect to root path instead of BASE_URL
+    socket = io("/", { 
       withCredentials: true,
-      transports: ['websocket', 'polling'] // Add fallback transports
+      transports: ['websocket', 'polling']
     });
     
     socket.on('connect', () => {
